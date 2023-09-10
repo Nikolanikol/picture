@@ -1,7 +1,5 @@
-const slider = (slidersSelector, direction, parentSelector) =>{
-    const sliders = document.querySelectorAll(slidersSelector),
-          parent = document.querySelector(parentSelector);
-          console.log(parent)
+const slider = (slidersSelector, direction) =>{
+    const sliders = document.querySelectorAll(slidersSelector);
     let slideIndex = 0;
     let paused = false;
 
@@ -24,7 +22,6 @@ const slider = (slidersSelector, direction, parentSelector) =>{
         if(slideIndex < 0){
             slideIndex = sliders.length-1
         }
-        console.log(slideIndex)
  
     }
     function slideMove(num){

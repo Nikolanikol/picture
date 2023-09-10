@@ -1,4 +1,4 @@
-const modals = (modalTriggerSelector , modalContentSelector, modalCloseBtnSelector, modifiedSelector = 'true')=>{
+const modals = (modalTriggerSelector , modalContentSelector, modalCloseBtnSelector)=>{
     const modalTrigger = document.querySelectorAll(modalTriggerSelector),
           modalContent = document.querySelector(modalContentSelector);
 
@@ -7,12 +7,7 @@ const modals = (modalTriggerSelector , modalContentSelector, modalCloseBtnSelect
             modalContent.classList.remove('hide')
             modalContent.classList.add('show')
             document.body.style.overflow = 'hidden';
-            if(modifiedSelector == '.button-transparent'){
-                document.body.style.overflow = '';
-            }
-            if(e.target.classList.contains(modifiedSelector.replace(/\./, ''))){
-                e.target.classList.add('hide')
-            }
+
         })
     })
     modalContent.addEventListener('click', (e)=>{
@@ -25,14 +20,14 @@ const modals = (modalTriggerSelector , modalContentSelector, modalCloseBtnSelect
         }
     })
 
-    const moreStyleButton = document.querySelector('.button-styles'),
-          styleImg = document.querySelectorAll('.hidden-lg');
-    moreStyleButton.addEventListener('click', ()=>{
-        moreStyleButton.classList.add('hide');
-        styleImg.forEach(item =>{
-            item.classList.add('show')
-        })
-    })
+    // const moreStyleButton = document.querySelector('.button-styles'),
+    //       styleImg = document.querySelectorAll('.hidden-lg');
+    // moreStyleButton.addEventListener('click', ()=>{
+    //     moreStyleButton.classList.add('hide');
+    //     styleImg.forEach(item =>{
+    //         item.classList.add('show')
+    //     })
+    // })
 }
 
 export default modals;
