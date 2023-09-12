@@ -6,6 +6,10 @@ import mask from "./modules/mask";
 import checkTextInputs from "./modules/checkTextInputs";
 import showMoreStyles from "./modules/showMoreStyles";
 import calc from "./modules/calc";
+import filter from "./modules/filter";
+import pictureSize from "./modules/pictureSize";
+import accordion from "./modules/accordion";
+import burger from "./modules/burger";
 document.addEventListener('DOMContentLoaded',()=>{
 
 const calcObj = {};
@@ -24,5 +28,10 @@ const calcObj = {};
     
     showMoreStyles('.button-styles', '#styles .row');
 
-    calc('#size', '#material', '#options', '.promocode', '.calc-price', calcObj)
+    calc('#size', '#material', '#options', '.promocode', '.calc-price', calcObj);
+
+    filter();
+    pictureSize();
+    accordion();
+    burger()
 })
