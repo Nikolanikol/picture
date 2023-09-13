@@ -10,6 +10,8 @@ import filter from "./modules/filter";
 import pictureSize from "./modules/pictureSize";
 import accordion from "./modules/accordion";
 import burger from "./modules/burger";
+import dragAndDrop from "./modules/dragAndDrop";
+
 document.addEventListener('DOMContentLoaded',()=>{
 
 const calcObj = {};
@@ -34,4 +36,5 @@ const calcObj = {};
     pictureSize();
     accordion();
     burger()
+    dragAndDrop();
 })

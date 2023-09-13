@@ -16,18 +16,29 @@ const accordion = () => {
     item.classList.add('animated', 'fadeInUp');
   });
   function hideContent() {
+    accordTrigger.forEach(btn => {
+      btn.classList.remove('active-btn');
+    });
     accordContent.forEach(item => {
       item.classList.add('hide');
     });
   }
   hideContent();
   accordTrigger.forEach(btn => {
-    btn.addEventListener('click', function () {
-      hideContent();
+    btn.addEventListener('click', function (e) {
+      // hideContent();
       this.classList.toggle('active-btn');
       this.nextElementSibling.classList.toggle('active-content');
       if (this.classList.contains('active-btn')) {
         this.nextElementSibling.classList.remove('hide');
+        this.querySelector('span').style.cssText = `
+            border-bottom: none;
+            `;
+      } else if (!this.classList.contains('active-btn')) {
+        this.nextElementSibling.classList.add('hide');
+        this.querySelector('span').style.cssText = `
+            border-bottom: '';
+            `;
       }
     });
   });
@@ -47,6 +58,9 @@ const burger = () => {
   const burgerBtn = document.querySelector('.burger'),
     burgerMenu = document.querySelector('.burger-menu');
   burgerBtn.addEventListener('click', function () {
+    burger.forEach(btn => {
+      btn.classList.remove('active');
+    });
     this.classList.toggle('active');
     if (this.classList.contains('active')) {
       this.querySelector('span').style.display = 'inline-block';
@@ -126,6 +140,78 @@ const checkTextInputs = selector => {
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = (checkTextInputs);
+
+/***/ }),
+
+/***/ "./src/js/modules/dragAndDrop.js":
+/*!***************************************!*\
+  !*** ./src/js/modules/dragAndDrop.js ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_requests__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./services/requests */ "./src/js/modules/services/requests.js");
+
+const dragAndDrop = () => {
+  const inputs = document.querySelectorAll('[name="upload"]');
+  console.log(inputs);
+  // ['drag enter', ' dragleave', 'dragover', 'drop'].forEach(eventName =>{
+  //     inputs.forEach(input=>{
+  //         input.addEventListener(eventName, preventDefaults, false)
+  //     })
+  // });
+
+  // function preventDefaults(e){
+  //     e.target.preventDefault();
+  //     e.target.stopPropagation();
+  // };
+
+  function highlight(item) {
+    item.closest('.file_upload').style.border = '4px solid yellow';
+    item.closest('.file_upload').style.background = 'grey';
+  }
+  ;
+  function unhighlight(item) {
+    item.closest('.file_upload').style.border = '';
+    item.closest('.file_upload').style.background = '';
+  }
+  ;
+  ['drag enter', 'dragover'].forEach(eventName => {
+    inputs.forEach(input => {
+      input.addEventListener(eventName, () => {
+        highlight(input);
+      }, false);
+    });
+  });
+  ['dragleave', 'drop'].forEach(eventName => {
+    inputs.forEach(input => {
+      input.addEventListener(eventName, () => {
+        unhighlight(input);
+      }, false);
+    });
+  });
+  inputs.forEach(input => {
+    input.addEventListener('drop', e => {
+      // if(input.getAttribute('id', 'main-upload')){
+      //     console.log(e.dataTransfer.files[0]);
+
+      //     postData('server.php', form )
+      //         .then(res => console.log(res))
+      //         .catch(()=>console.log('upload miss'))
+      //         // .finally(()=>{
+      //         //     setTimeout(input.previousElementSibling.textContent = '', 2000)
+      //         // })
+      // }
+      input.files = e.dataTransfer.files;
+      let dots;
+      const nameArr = input.files[0].name.split('.');
+      nameArr[0].length > 5 ? dots = '...' : dots = '.';
+      const nameStr = nameArr[0].substring(0, 5) + dots + nameArr[nameArr.length - 1];
+      input.previousElementSibling.textContent = nameStr;
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (dragAndDrop);
 
 /***/ }),
 
@@ -210,7 +296,7 @@ const forms = calcObj => {
           form.append(key, calcObj[key]);
         }
       } else {
-        form = new FormData();
+        form = new FormData(item);
       }
       item.classList.add('animated', 'fadeOutUp');
       item.style.display = 'none';
@@ -416,7 +502,7 @@ const getResours = async url => {
   if (!res.ok) {
     throw new Error(`Could not fetch ${url}, status ${res.status}`);
   }
-  return await res.json();
+  return await res.text();
 };
 
 
@@ -633,10 +719,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_pictureSize__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/pictureSize */ "./src/js/modules/pictureSize.js");
 /* harmony import */ var _modules_accordion__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/accordion */ "./src/js/modules/accordion.js");
 /* harmony import */ var _modules_burger__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./modules/burger */ "./src/js/modules/burger.js");
+/* harmony import */ var _modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./modules/dragAndDrop */ "./src/js/modules/dragAndDrop.js");
 
 
 
 // import formspetr from "./modules/forms-petr";
+
 
 
 
@@ -662,6 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (0,_modules_pictureSize__WEBPACK_IMPORTED_MODULE_8__["default"])();
   (0,_modules_accordion__WEBPACK_IMPORTED_MODULE_9__["default"])();
   (0,_modules_burger__WEBPACK_IMPORTED_MODULE_10__["default"])();
+  (0,_modules_dragAndDrop__WEBPACK_IMPORTED_MODULE_11__["default"])();
 });
 }();
 /******/ })()

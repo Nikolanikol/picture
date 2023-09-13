@@ -5,3 +5,9 @@
     display: none;
     
 }
+.active-btn span{
+    color: purple;
+    font-weight: 900;
+    border-bottom: none;
+    text-decoration: none;
+}

@@ -39,7 +39,7 @@ const forms = (calcObj)=>{
                     form.append(key, calcObj[key]);
                 }
             }else{
-                form = new FormData();
+                form = new FormData(item);
             }
             item.classList.add('animated', 'fadeOutUp');
             item.style.display = 'none';
